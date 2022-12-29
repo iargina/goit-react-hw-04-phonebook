@@ -5,13 +5,9 @@ import { ContactList } from './ContactList/ContactList';
 import { nanoid } from 'nanoid';
 
 export const App = () => {
-  const [contacts, setContacts] = useState(() => {
-    const saved = localStorage.getItem('contacts');
-    if (!saved) {
-      return [];
-    }
-    return JSON.parse(saved);
-  });
+  const [contacts, setContacts] = useState(
+    () => JSON.parse(localStorage.getItem('contacts')) ?? []
+  );
   const [filter, setFilter] = useState('');
 
   const deleteClient = id => {

@@ -6,12 +6,19 @@ export const ContactForm = ({ pushToContact }) => {
   const [clientName, setName] = useState('');
   const [clientNumber, setNumber] = useState('');
 
-  const clientNameOnChange = ev => {
-    return setName(ev.currentTarget.value);
+  const handleChange = ev => {
+    switch (ev.currentTarget.name) {
+      case 'clientName':
+        setName(ev.currentTarget.value);
+        break;
+      case 'clientNumber':
+        setNumber(ev.currentTarget.value);
+        break;
+      default:
+        alert('Something went wrong');
+    }
   };
-  const clientNumberOnChange = ev => {
-    return setNumber(ev.currentTarget.value);
-  };
+
   const onSubmit = event => {
     event.preventDefault();
     const client = {
@@ -34,7 +41,7 @@ export const ContactForm = ({ pushToContact }) => {
           className={css.input}
           pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
           value={clientName}
-          onChange={clientNameOnChange}
+          onChange={handleChange}
           title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
           required
         />
@@ -46,7 +53,7 @@ export const ContactForm = ({ pushToContact }) => {
           name="clientNumber"
           className={css.input}
           value={clientNumber}
-          onChange={clientNumberOnChange}
+          onChange={handleChange}
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
           required
